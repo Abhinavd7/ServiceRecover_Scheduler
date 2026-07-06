@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>class-diagram.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="service-recovery-scheduler--class-diagram">Service Recovery Scheduler — Class Diagram</h1>
+<h2 id="overview">Overview</h2>
+<p>The scheduler registers services with ordered recovery action sequences. On failure, it delegates to <code>ServiceRecoveryState</code>, which selects and executes the next <code>IRecoveryAction</code> in the sequence.</p>
+<hr>
+<h2 id="class-diagram">Class diagram</h2>
+<pre class="hljs"><code><div>+---------------------------+         +-----------------------------+
+|        Scheduler          | 1    *  |    ServiceRecoveryState     |
+|---------------------------|--------&gt;|-----------------------------|
+| - services_               |  owns   | - actionSequence_           |
+|---------------------------|         | - currentLevel_             |
+| + RegisterService()       |         | - lastAction_               |
+| + ReportFailure()         |         |-----------------------------|
+| + GetState()              |         | + HandleFailure()           |
++-------------+-------------+         | + GetLastAction()           |
+              |                       | + GetLevel()                |
+              | returns               +-------------+---------------+
+              v                                     |
++---------------------------+                       | 1..* actionSequence_
+|      ServiceStatus        |                       v
+|---------------------------|         +-----------------------------+
+| + currentLevel            |         |  &lt;&lt;interface&gt;&gt;              |
+| + lastActionName          |         |     IRecoveryAction         |
++---------------------------+         |-----------------------------|
+                                      | + Execute()                 |
+                                      | + GetName()                 |
+                                      +-------------+---------------+
+                                                    ^
+                                      implements    |
+                         +------------+-------------+-------------+
+                         |            |                           |
+                  +-------------+ +-------------+ +----------------+
+                  | RestartAction| | StopAction  | | DisableAction |
+                  |-------------| |-------------| |----------------|
+                  | + Execute() | | + Execute() | | + Execute()    |
+                  | + GetName() | | + GetName() | | + GetName()    |
+                  +-------------+ +-------------+ +----------------+
+
+  lastAction_ (0..1) points to one action already held in actionSequence_
+</div></code></pre>
+<hr>
+<h2 id="classes">Classes</h2>
+<h3 id="scheduler">Scheduler</h3>
+<p>Central registry. Maps each service name to its <code>ServiceRecoveryState</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Visibility</th>
+<th>Member</th>
+<th>Type / signature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>private</td>
+<td><code>services_</code></td>
+<td><code>std::unordered_map&lt;std::string, ServiceRecoveryState&gt;</code></td>
+</tr>
+<tr>
+<td>public</td>
+<td><code>RegisterService</code></td>
+<td><code>(serviceName, actionSequence) → bool</code></td>
+</tr>
+<tr>
+<td>public</td>
+<td><code>ReportFailure</code></td>
+<td><code>(serviceName) → std::optional&lt;std::string&gt;</code></td>
+</tr>
+<tr>
+<td>public</td>
+<td><code>GetState</code></td>
+<td><code>(serviceName) → std::optional&lt;ServiceStatus&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="servicestatus">ServiceStatus</h3>
+<p>Value object returned when querying service state.</p>
+<table>
+<thead>
+<tr>
+<th>Visibility</th>
+<th>Member</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public</td>
+<td><code>currentLevel</code></td>
+<td><code>int</code> — index of last executed action; <code>-1</code> before first failure</td>
+</tr>
+<tr>
+<td>public</td>
+<td><code>lastActionName</code></td>
+<td><code>std::string</code> — empty when no failure has occurred yet</td>
+</tr>
+</tbody>
+</table>
+<h3 id="servicerecoverystate">ServiceRecoveryState</h3>
+<p>Per-service escalation tracker. Holds the ordered action sequence and current position.</p>
+<table>
+<thead>
+<tr>
+<th>Visibility</th>
+<th>Member</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>private</td>
+<td><code>actionSequence_</code></td>
+<td><code>std::vector&lt;std::shared_ptr&lt;IRecoveryAction&gt;&gt;</code></td>
+</tr>
+<tr>
+<td>private</td>
+<td><code>currentLevel_</code></td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td>private</td>
+<td><code>lastAction_</code></td>
+<td><code>std::shared_ptr&lt;IRecoveryAction&gt;</code></td>
+</tr>
+<tr>
+<td>public</td>
+<td><code>HandleFailure</code></td>
+<td><code>(serviceName) → IRecoveryAction&amp;</code></td>
+</tr>
+<tr>
+<td>public</td>
+<td><code>GetLastAction</code></td>
+<td><code>() → std::string</code></td>
+</tr>
+<tr>
+<td>public</td>
+<td><code>GetLevel</code></td>
+<td><code>() → int</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="irecoveryaction-interface">IRecoveryAction (interface)</h3>
+<table>
+<thead>
+<tr>
+<th>Visibility</th>
+<th>Method</th>
+<th>Return type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public</td>
+<td><code>Execute</code></td>
+<td><code>void</code></td>
+</tr>
+<tr>
+<td>public</td>
+<td><code>GetName</code></td>
+<td><code>std::string</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="restartaction--stopaction--disableaction">RestartAction / StopAction / DisableAction</h3>
+<p>Concrete dummy implementations of <code>IRecoveryAction</code>. Each logs a message to stdout and returns a fixed name (<code>RESTART</code>, <code>STOP</code>, or <code>DISABLE</code>).</p>
+<hr>
+<h2 id="relationships">Relationships</h2>
+<table>
+<thead>
+<tr>
+<th>From</th>
+<th>To</th>
+<th>UML</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Scheduler</code></td>
+<td><code>ServiceRecoveryState</code></td>
+<td>composition (1 → *)</td>
+<td>One scheduler owns many per-service states, keyed by name</td>
+</tr>
+<tr>
+<td><code>Scheduler</code></td>
+<td><code>ServiceStatus</code></td>
+<td>dependency</td>
+<td><code>GetState()</code> returns a snapshot value object</td>
+</tr>
+<tr>
+<td><code>ServiceRecoveryState</code></td>
+<td><code>IRecoveryAction</code></td>
+<td>aggregation (1 → *)</td>
+<td><code>actionSequence_</code> — ordered list of shared actions</td>
+</tr>
+<tr>
+<td><code>ServiceRecoveryState</code></td>
+<td><code>IRecoveryAction</code></td>
+<td>dependency (0..1)</td>
+<td><code>lastAction_</code> — pointer to the most recently executed action</td>
+</tr>
+<tr>
+<td><code>RestartAction</code></td>
+<td><code>IRecoveryAction</code></td>
+<td>realization</td>
+<td>Implements restart recovery</td>
+</tr>
+<tr>
+<td><code>StopAction</code></td>
+<td><code>IRecoveryAction</code></td>
+<td>realization</td>
+<td>Implements stop recovery</td>
+</tr>
+<tr>
+<td><code>DisableAction</code></td>
+<td><code>IRecoveryAction</code></td>
+<td>realization</td>
+<td>Implements disable recovery</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="call-flow-failure-reported">Call flow (failure reported)</h2>
+<pre class="hljs"><code><div> Client          Scheduler           ServiceRecoveryState       IRecoveryAction
+   |                 |                        |                       |
+   | ReportFailure   |                        |                       |
+   |----------------&gt;|                        |                       |
+   |                 | HandleFailure          |                       |
+   |                 |-----------------------&gt;|                       |
+   |                 |                        | Execute               |
+   |                 |                        |----------------------&gt;|
+   |                 |                        |        done           |
+   |                 |                        |&lt;----------------------|
+   |                 |     action ref         |                       |
+   |                 |&lt;-----------------------|                       |
+   |  action name    |                        |                       |
+   |&lt;----------------|                        |                       |
+</div></code></pre>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Client calls <code>Scheduler::ReportFailure(serviceName)</code>.</li>
+<li>Scheduler looks up the service in <code>services_</code>.</li>
+<li>Scheduler delegates to <code>ServiceRecoveryState::HandleFailure</code>.</li>
+<li>State selects the next action index, executes it, and updates <code>currentLevel_</code> / <code>lastAction_</code>.</li>
+<li>Scheduler returns the executed action name (<code>std::optional&lt;std::string&gt;</code>).</li>
+</ol>
+<hr>
+<h2 id="c-type-reference-quick-lookup">C++ type reference (quick lookup)</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Return type (C++)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Scheduler::RegisterService</code></td>
+<td><code>bool</code></td>
+</tr>
+<tr>
+<td><code>Scheduler::ReportFailure</code></td>
+<td><code>std::optional&lt;std::string&gt;</code></td>
+</tr>
+<tr>
+<td><code>Scheduler::GetState</code></td>
+<td><code>std::optional&lt;ServiceStatus&gt;</code></td>
+</tr>
+<tr>
+<td><code>ServiceRecoveryState::HandleFailure</code></td>
+<td><code>IRecoveryAction&amp;</code></td>
+</tr>
+<tr>
+<td><code>ServiceRecoveryState::GetLastAction</code></td>
+<td><code>std::string</code></td>
+</tr>
+<tr>
+<td><code>ServiceRecoveryState::GetLevel</code></td>
+<td><code>int</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="example-escalation">Example escalation</h2>
+<p>For <code>network-daemon</code> registered with <code>[RESTART, RESTART, STOP, DISABLE]</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Failure #</th>
+<th>Action executed</th>
+<th>Level after</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>—</td>
+<td>(none yet)</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>RESTART</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>RESTART</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>STOP</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>DISABLE</td>
+<td>3</td>
+</tr>
+<tr>
+<td>5+</td>
+<td>DISABLE (repeated)</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
